@@ -1,5 +1,8 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
+from django.core.mail import send_mail
 
 
 class AccountManager(BaseUserManager):
@@ -19,20 +22,32 @@ class AccountManager(BaseUserManager):
 
     def create_superuser(self, email, password, **kwargs):
         account = self.create_user(email, password, **kwargs)
-        account.is_admin = True
+        account.is_superuser = True
+        account.is_staff = True
         account.save()
         return account
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=40, unique=True)
     first_name = models.CharField(max_length=40, blank=True)
     last_name = models.CharField(max_length=40, blank=True)
     tagline = models.CharField(max_length=140, blank=True)
-    is_admin = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_staff = models.BooleanField(_('staff status'), default=False,
+                                   help_text=_('Designates whether the user can log into this admin '
+                                               'site.'))
+    is_active = models.BooleanField(_('active'), default=True,
+                                    help_text=_('Designates whether this user should be treated as '
+                                                'active. Unselect this instead of deleting accounts.'))
+
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
 
     objects = AccountManager()
     USERNAME_FIELD = 'email'
@@ -46,3 +61,9 @@ class Account(AbstractBaseUser):
 
     def get_short_name(self):
         return self.first_name
+
+    def email_user(self, subject, message, from_email=None, **kwargs):
+        """
+        Sends an email to this User.
+        """
+        send_mail(subject, message, from_email, [self.email], **kwargs)
