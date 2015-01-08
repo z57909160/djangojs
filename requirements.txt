@@ -9,3 +9,7 @@ gunicorn==19.1.1
 six==1.8.0
 static3==0.5.1
 #wsgiref==0.1.2
+djangocms-admin-style==0.2.5
+
+# Optional, recommended packages
+#psycopg2>=2.5	# To work with PostgreSQL
