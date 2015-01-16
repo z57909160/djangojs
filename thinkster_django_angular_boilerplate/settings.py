@@ -1,6 +1,9 @@
 import dj_database_url
 import os
 
+#from django.utils.translation import ugettext_lazy as _
+_ = lambda s: s
+
 
 DEBUG = os.environ.get('DEBUG', True)
 TEMPLATE_DEBUG = DEBUG
@@ -19,6 +22,7 @@ AUTH_USER_MODEL = 'authentication.Account'
 
 INSTALLED_APPS = (
     'djangocms_admin_style',
+    'admin_shortcuts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +47,7 @@ MIDDLEWARE_CLASSES = (
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.debug',
 )
@@ -92,3 +97,22 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     )
 }
+
+ADMIN_SHORTCUTS = [
+    {
+        'shortcuts': [
+            {
+                'url': '/',
+                'open_new_window': True,
+            },
+            {
+                'url_name': 'admin:authentication_account_changelist',
+                'title': _('Users'),
+            },
+            {
+                'url_name': 'admin:posts_post_changelist',
+                'title': _('Posts'),
+            },
+        ]
+    },
+]
