@@ -15,3 +15,13 @@ dist/
 
 # Staticfiles
 staticfiles/
+
+# IDE files
+.idea
+*.iml
+*.ipr
+*.iws
+.settings
+.project
+.pydevproject
+.directory
