@@ -48,7 +48,30 @@
     * @memberOf thinkster.utils.services.Snackbar
     */
     function error(content, options) {
-      _snackbar('Error: ' + content, options);
+      if (typeof content === 'string') {
+        _snackbar('Error: ' + content, options);
+      } else {
+        if (content.error) {
+          _snackbar('Error: ' + content.error);
+        } else if (content.data.error) {
+          _snackbar('Error: ' + content.data.error);
+        } else if (content.detail) {
+          _snackbar('Error: ' + content.detail);
+        } else if (content.data.detail) {
+          _snackbar('Error: ' + content.data.detail);
+        } else if (content.status == 500) {
+          _snackbar("Unexpected error. Contact the Administrator.");
+        } else if (content.status && content.status == 400 && content.data) {
+          //TODO each field error should be displayed below its input box
+          var msg = "Errors: <br/>";
+          for(var k in content.data) {
+            msg += "&bull; <strong>" + k + "</strong>: " + content.data[k].join(". ") + "<br/>";
+          }
+          if (msg) {
+            _snackbar(msg);
+          }
+        }
+      }
     }
 
 

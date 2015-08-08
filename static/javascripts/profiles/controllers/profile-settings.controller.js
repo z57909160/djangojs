@@ -92,7 +92,7 @@
              * @desc Display error snackbar
              */
             function profileErrorFn(data, status, headers, config) {
-                Snackbar.error(data.error);
+                Snackbar.error(data);
             }
         }
 
@@ -119,7 +119,7 @@
              * @desc Show error snackbar
              */
             function profileErrorFn(data, status, headers, config) {
-                Snackbar.error(data.error);
+                Snackbar.error(data);
             }
         }
     }
