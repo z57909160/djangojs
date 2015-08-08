@@ -16,6 +16,9 @@ dist/
 # Staticfiles
 staticfiles/
 
+# Log files
+*.log
+
 # IDE files
 .idea
 *.iml
