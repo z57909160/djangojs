@@ -39,7 +39,14 @@
          * @memberOf thinkster.authentication.controllers.LoginController
          */
         function login() {
-            Authentication.login(vm.email, vm.password);
+            var p = Authentication.login(vm.email, vm.password);
+            p.then(function(value) {
+                if (value.status < 200 || value.status >299) {
+                    $scope.error = value.data.message;
+                }
+            }, function(reason) {
+                console.log("Error: " + JSON.stringify(reason));
+            });
         }
     }
 })();

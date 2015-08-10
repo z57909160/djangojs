@@ -82,8 +82,8 @@
              * @name loginSuccessFn
              * @desc Set the authenticated account and redirect to index
              */
-            function loginSuccessFn(data, status, headers, config) {
-                Authentication.setAuthenticatedAccount(data.data);
+            function loginSuccessFn(response) {
+                Authentication.setAuthenticatedAccount(response.data);
                 window.location = '/';
             }
 
@@ -91,8 +91,8 @@
              * @name loginErrorFn
              * @desc Log "Epic failure!" to the console
              */
-            function loginErrorFn(data, status, headers, config) {
-                console.error('Login failure!');
+            function loginErrorFn(response) {
+                return response;
             }
         }
 
