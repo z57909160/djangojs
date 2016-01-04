@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_swagger',
     'compressor',
     'thinkster_django_angular_boilerplate.authentication',
     'thinkster_django_angular_boilerplate.posts',
