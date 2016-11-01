@@ -54,17 +54,17 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 DATABASES = {
-    #'default': dj_database_url.config(
-    #    default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-    #)
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_thinkster',
-        'USER': 'postgres',
-        'PASSWORD': '57909160',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+    )
+    #'default': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #    'NAME': 'django_thinkster',
+    #    'USER': 'postgres',
+    #    'PASSWORD': '57909160',
+    #    'HOST': 'localhost',
+    #    'PORT': '5432',
+    #}
 }
 
 LANGUAGE_CODE = 'en-us'
